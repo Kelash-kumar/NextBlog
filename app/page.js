@@ -1,101 +1,92 @@
-import Image from "next/image";
-
+import Header from "./components/Header";
+import BlogList from "./components/BlogPostList";
+const posts = [
+  {
+    title: "The Future of Web Development",
+    description:
+      "Explore the emerging trends and technologies shaping the future of web development in 2024 and beyond.",
+    imageUrl: "https://via.placeholder.com/400x200?text=Web+Development",
+    author: "Alice Johnson",
+    date: "September 21, 2024",
+  },
+  {
+    title: "Mastering CSS Grid and Flexbox",
+    description:
+      "A deep dive into the CSS layout models: Grid and Flexbox, and when to use them in modern web design.",
+    imageUrl: "https://via.placeholder.com/400x200?text=CSS+Grid+&+Flexbox",
+    author: "Robert Williams",
+    date: "September 10, 2024",
+  },
+  {
+    title: "JavaScript ES2024 Features You Need to Know",
+    description:
+      "Learn about the latest ECMAScript 2024 features, including new syntax and performance improvements.",
+    imageUrl: "https://via.placeholder.com/400x200?text=JavaScript+ES2024",
+    author: "Emily Davis",
+    date: "August 29, 2024",
+  },
+  {
+    title: "Building Scalable Microservices with Node.js",
+    description:
+      "Discover how to build and deploy scalable microservices using Node.js and best practices for architecture.",
+    imageUrl: "https://via.placeholder.com/400x200?text=Node.js+Microservices",
+    author: "Michael Brown",
+    date: "July 15, 2024",
+  },
+  {
+    title: "React 18: New Features and Improvements",
+    description:
+      "React 18 is here with exciting new features like concurrent rendering, automatic batching, and more.",
+    imageUrl: "https://via.placeholder.com/400x200?text=React+18",
+    author: "Sarah Johnson",
+    date: "June 5, 2024",
+  },
+  {
+    title: "Getting Started with TypeScript in 2024",
+    description:
+      "An introduction to TypeScript for developers looking to add type safety to their JavaScript projects.",
+    imageUrl: "https://via.placeholder.com/400x200?text=TypeScript",
+    author: "David Lee",
+    date: "May 22, 2024",
+  },
+  {
+    title: "Web Accessibility: Why It Matters",
+    description:
+      "Learn about web accessibility standards and how to make your website more inclusive for all users.",
+    imageUrl: "https://via.placeholder.com/400x200?text=Web+Accessibility",
+    author: "Laura Smith",
+    date: "April 18, 2024",
+  },
+  {
+    title: "A Guide to Serverless Architecture",
+    description:
+      "Understand the pros and cons of serverless architecture and how it can benefit your applications.",
+    imageUrl: "https://via.placeholder.com/400x200?text=Serverless+Architecture",
+    author: "Kevin White",
+    date: "March 10, 2024",
+  },
+  {
+    title: "Introduction to Machine Learning with JavaScript",
+    description:
+      "Learn how to get started with machine learning in JavaScript using popular libraries like TensorFlow.js.",
+    imageUrl: "https://via.placeholder.com/400x200?text=Machine+Learning",
+    author: "Sophia Martinez",
+    date: "February 20, 2024",
+  },
+  {
+    title: "GraphQL vs REST: Which API Style is Right for You?",
+    description:
+      "A detailed comparison between GraphQL and REST, helping you choose the best API design for your projects.",
+    imageUrl: "https://via.placeholder.com/400x200?text=GraphQL+vs+REST",
+    author: "James Anderson",
+    date: "January 15, 2024",
+  },
+];
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+   <>
+  <Header/>
+  <BlogList posts={posts}/>
+   </>
   );
 }
