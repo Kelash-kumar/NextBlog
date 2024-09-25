@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Avtar from "../../../Assets/Avtar.jpg";
-const BlogTableItems = ({ title, date ,author}) => {
+const BlogTableItems = ({ title, date ,author,DeleteBlogHandler}) => {
   return (
     <tr className="bg-white border-b hover:bg-gray-100 transition duration-150 ease-in-out">
       <td
@@ -26,7 +26,9 @@ const BlogTableItems = ({ title, date ,author}) => {
         {/* <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md">
           Edit
         </button> */}
-        <button className="ml-2 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md">
+        <button className="ml-2 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md"
+        onClick={DeleteBlogHandler}
+        >
           Delete
         </button>
       </td>

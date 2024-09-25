@@ -30,3 +30,23 @@ export async function GET(request, { params }) {
     );
   }
 }
+export async function DELETE(request, { params }) {
+  try {
+    const { id } = params;
+    
+    const post = await Post.findByIdAndDelete(id);
+    if (!post) {
+      return NextResponse.json({ message: "Post not found",status:404 });
+    }
+    return NextResponse.json({
+      status: 200,
+      message: "Your request has succeed.",
+
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "server error ", status:500 },
+     
+    );
+  }
+}

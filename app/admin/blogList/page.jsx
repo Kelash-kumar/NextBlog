@@ -7,6 +7,7 @@ const page = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [blogs,setBlogs] = useState([]);
 
+  // geting all blogs
   const fetchBlogs = async() =>{
     try {
       const res = await axios.get('/api/blog');
@@ -18,7 +19,19 @@ const page = () => {
       console.log(error);
     }
   }
-
+  //delete specific post
+  const DeleteBlog = async(id) =>{
+    try {
+      const res = await axios.delete(`/api/blog/${id}`);
+     if(res && res.data){
+    setBlogs(blogs.filter(post => post._id!==id));
+     }
+      
+    } catch (error) {
+      console.log(error.response);
+    }
+  
+  }
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() =>{
 fetchBlogs();
@@ -52,10 +65,12 @@ fetchBlogs();
               blogs.map(post =>(
 
             <BlogTableItems
+
             key={post._id}
             title={post.title}
             date={post.createAt}
             author={post.author}
+            DeleteBlogHandler={()=>DeleteBlog(post._id)}
             />
               ))
             }
