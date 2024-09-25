@@ -12,7 +12,7 @@ const BlogCard = ({ title, description, imageUrl, author,category ,date }) => {
      
       <div className="p-6">
         <h2 className="text-2xl font-bold text-gray-800 mb-2">{title}</h2>
-        <span className="border border-blue-300 bg-gray-100 px-7 py-1 rounded-sm">{category}</span>
+        <span className="border border-blue-300 bg-gray-100 px-7 py-1 rounded-sm">{!category?'unKnown':category}</span>
         <p className="mt-2 text-gray-600 mb-4">{description}</p>
 
         {/* Author and Date */}

@@ -1,11 +1,29 @@
 "use client";
-import { posts } from "@/app/PostData";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useEffect, useState } from "react";
 const page = ({ params }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
-  const post = posts.find((p) => p.id === Number(params.id));
-
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [post,setPost] = useState({});
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    const fetchBlogsPostsDetails = async () => {
+      try {
+        const res = await axios.get(`/api/blog/${params.id}`);
+       if(res){
+        console.log(res.data)
+       setPost(res.data.post);
+       }
+      } catch (error) {
+        console.error("Error to get blog post details " + error.response.data.message);
+      }
+    };
+   fetchBlogsPostsDetails();
+  }, []);
+  if(!post)return <div className="p-20 text-3xl">Loading</div>
   return (
     <div className="max-w-2xl mx-auto p-6 my-20">
       <button
@@ -13,20 +31,20 @@ const page = ({ params }) => {
       className="border border-gray-300 rounded-md px-7 text-2xl font-bold active:bg-gray-400 my-5 active:text-white">←</button>
       <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
       <div className="text-gray-600 mb-4">
-        <span>By {post.author}</span> | <span>{post.date}</span>
+        <span>By {post.author}</span> | <span>{new Date(post.createdAt).toLocaleDateString()}</span>
       </div>
       <img
-        src={post.imageUrl}
+        src={post.image}
         alt={post.title}
         className="w-full h-64 object-cover mb-6 rounded"
       />
       <p className="text-gray-700 mb-4">{post.description}</p>
       <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-        {post.category}
+        {!post.category?"unKnown":post.category}
       </span>
       <div className="mt-6">
         <h2 className="text-2xl font-bold">Content</h2>
-        <p className="text-gray-700">{post.content}</p>
+        {/* <p className="text-gray-700">{post.content}</p> */}
       </div>
     </div>
   );

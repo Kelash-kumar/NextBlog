@@ -21,11 +21,15 @@ const BlogList = () => {
     };
     fetchBlogsPosts();
   }, []);
-
+let disablebtn =false;
   // Filter posts when blogPosts or filter changes
   const filteredPosts = useMemo(() => {
     if (filter === "All") return blogPosts;
-    return blogPosts.filter((post) => post.category === filter);
+    return blogPosts.filter((post) => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if(!post.category)disablebtn=true;
+     return post.category === filter}
+    );
   }, [blogPosts, filter]);
 
   return (
@@ -33,7 +37,8 @@ const BlogList = () => {
       {/* Category Filter */}
       <div className="flex space-x-2 justify-center">
         {categories.map((cat) => (
-          <button
+          <button 
+            disabled={disablebtn?true:false}
             key={cat}
             onClick={() => setFilter(cat)}
             className={`px-2 py-1 my-4 rounded-lg ${filter === cat ? "bg-blue-600 text-white" : "bg-gray-200"}`}
@@ -47,13 +52,13 @@ const BlogList = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-20 py-10">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post, index) => (
-            <Link key={index} href={`blogs/${post.id}`}>
+            <Link key={index} href={`blogs/${post._id}`}>
               <BlogCard
                 title={post.title}
                 description={post.description}
                 imageUrl={post.image}
                 author={post.author}
-                category={post.category}
+                category={post?.category}
                 date={new Date(post.createdAt).toLocaleDateString()}
               />
             </Link>

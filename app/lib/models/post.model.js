@@ -11,9 +11,12 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true
       },
-      category:{
-        type:String,
-        required:true
+      category: {
+        type: String,
+        required: true,
+        enum:['Technology','Science','Creative','News'],
+        trim: true,
+        default:'Technology'
       },
       author: {
         type: String,
@@ -26,6 +29,7 @@ const PostSchema = new mongoose.Schema({
       }],
       image:{
         type:String,
+        trim:true
       },
       createdAt: {
         type: Date,
