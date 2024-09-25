@@ -4,25 +4,37 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 const page = ({ params }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [post,setPost] = useState({});
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const [loading, setLoading] = useState(true);
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const fetchBlogsPostsDetails = async () => {
       try {
         const res = await axios.get(`/api/blog/${params.id}`);
        if(res){
-        console.log(res.data)
-       setPost(res.data.post);
+         setPost(res.data.post);
+         setLoading(false);
        }
       } catch (error) {
         console.error("Error to get blog post details " + error.response.data.message);
+      setLoading(true);
       }
     };
    fetchBlogsPostsDetails();
-  }, []);
+  }, [params.id]);
+  if(loading){
+    return  <div className="flex justify-center align-middle py-30 my-52">
+    <div class="three-body  ">
+    <div class="three-body__dot"></div>
+    <div class="three-body__dot"></div>
+    <div class="three-body__dot"></div>
+    </div>
+    </div>
+  }
   if(!post)return <div className="p-20 text-3xl">Loading</div>
   return (
     <div className="max-w-2xl mx-auto p-6 my-20">

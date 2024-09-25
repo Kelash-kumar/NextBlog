@@ -8,19 +8,23 @@ const categories = ["All", "Technology", "Science", "Creative",'News'];
 const BlogList = () => {
   const [blogPosts, setBlogPosts] = useState([]);
   const [filter, setFilter] = useState("All");
+  const [loading, setLoading] = useState(true);
   const date = new Date();
   // Fetch blogs once
   useEffect(() => {
     const fetchBlogsPosts = async () => {
       try {
         const res = await axios.get("/api/blog");
+        setLoading(false);
         setBlogPosts(res.data.posts);
       } catch (error) {
         console.error("Error while loading blogs " + error);
+        setLoading(true)
       }
     };
     fetchBlogsPosts();
   }, []);
+
 let disablebtn =false;
   // Filter posts when blogPosts or filter changes
   const filteredPosts = useMemo(() => {
@@ -32,6 +36,15 @@ let disablebtn =false;
     );
   }, [blogPosts, filter]);
 
+  if(loading){
+    return  <div className="flex justify-center align-middle py-30 my-52">
+    <div class="three-body  ">
+    <div class="three-body__dot"></div>
+    <div class="three-body__dot"></div>
+    <div class="three-body__dot"></div>
+    </div>
+    </div>
+  }
   return (
     <div className="p-6">
       {/* Category Filter */}
